@@ -16,9 +16,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        TestCache().testMemoryWrite()
-        _ = TestCache().testMemoryRead()
+        let test = TestCache()
+        test.testMemoryWrite()
+        print("------------")
+        _ = test.testMemoryRead()
         
     }
 
@@ -59,6 +60,11 @@ struct TestCache {
     let cache_memory_storage = MemoryStorage<Any>.init(config: MemoryConfig(expiry: .never, countLimit: UInt(5000), totalCostLimit: 1000))
     let nsCache: NSCache = NSCache<AnyObject, AnyObject>()
     
+    let yy_Disk = YYDiskCache(path: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!.appending("/yy_disk"))
+    let cache_Disk = try! DiskStorage(config: DiskConfig(name: "cache_Disk"), transformer: TransformerFactory.forCodable(ofType: String.self))
+    let haneke_Disk = Haneke.DiskCache(path: NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first!.appending("Haneke_disk"))
+    
+    
     private func testWrite(_ tag: String, clourse: (String, String) -> Void) {
         let start = CACurrentMediaTime()
         for i in 0 ..< n {
@@ -71,14 +77,17 @@ struct TestCache {
     }
     
     
-    private func testRead(_ tag: String, clourse: (String) -> Void) {
+    private func testRead(_ tag: String, clourse: (String) -> Any?) {
         let start = CACurrentMediaTime()
+        var missCount = 0
         for i in 0 ..< n {
             let key: String = "key" + String(i) + "key"
-            clourse(key)
+            if clourse(key) == nil {
+                missCount += 1
+            }
         }
         let end = CACurrentMediaTime()
-        print("\(tag) read \(n) times qps : \(Double(n) / (end - start))")
+        print("\(tag) read \(n) times qps : \(Double(n) / (end - start))， read miss count \(missCount)")
     }
 
     
@@ -108,29 +117,67 @@ struct TestCache {
         testWrite("NSCache") { (key, value) in
             nsCache.setObject(value as AnyObject, forKey: key as AnyObject, cost: 0)
         }
-        
-        
-//        let diskConfig = DiskConfig(name: "Floppy")
-//        let memoryConfig = MemoryConfig(expiry: .never, countLimit: 1000, totalCostLimit: 1000)
-//        let storage = try? Storage(
-//          diskConfig: diskConfig,
-//          memoryConfig: memoryConfig,
-//          transformer: TransformerFactory.forCodable(ofType: String.self) // Storage<User>
-//        )
-//        testWrite("Cache") { (key, value) in
-//            try? storage?.setObject(value, forKey: key)
-//        }
-        
-        
-//        let cache = Shared.stringCache
-//        testWrite("Haneke") { (key, value) in
-//            cache.set(value: value, key: key)
-//        }
     }
     
     
     /// 测试内存缓存读
     public func testMemoryRead() -> Any {
+        // Dictionary + Lock
+        testRead("dictionaryCache") { (key) in
+            return dictionaryCache.object(key)
+        }
+        
+        // YYCahe
+        testRead("yycache_memory") { (key) in
+            return yyMemoryCache.object(forKey: key)
+        }
+        
+        // Track
+        testRead("Track_memory") { (key) in
+            return track_memory.object(forKey: key) as Any?
+        }
+        
+        // Cache
+        testRead("Cache_memory") { (key) in
+            return try! cache_memory_storage.entry(forKey: key).object
+        }
+       
+        // NSCache
+        testRead("NSCache") { (key) in
+            return nsCache.object(forKey: key as AnyObject) as Any?
+        }
+        return "temp"
+    }
+    
+    
+    
+    /// 测试磁盘缓存写入
+    func testDiskWrite() {
+        
+        // YYCahe
+        testWrite("yycache_memory") { (key, value) in
+            yyMemoryCache.setObject(value, forKey: key)
+        }
+        
+        // Track
+        testWrite("Track_memory") { (key, value) in
+            track_memory.set(object: value as AnyObject, forKey: key)
+        }
+        
+        // Cache
+        testWrite("Cache_memory") { (key, value) in
+            cache_memory_storage.setObject(value, forKey: key)
+        }
+       
+        // NSCache
+        testWrite("NSCache") { (key, value) in
+            nsCache.setObject(value as AnyObject, forKey: key as AnyObject, cost: 0)
+        }
+    }
+    
+    
+    /// 测试磁盘缓存读
+    public func testDiskRead() -> Any {
         var result: Any = ""
         
         // Dictionary + Lock
@@ -150,7 +197,7 @@ struct TestCache {
         
         // Cache
         testRead("Cache_memory") { (key) in
-            result = try! cache_memory_storage.object(forKey: key)
+            result = try! cache_memory_storage.entry(forKey: key).object
         }
        
         // NSCache
@@ -159,48 +206,6 @@ struct TestCache {
         }
         return result
     }
-    
-    
-    
-    
-    
-    struct User: Codable {
-      let firstName: String
-      let lastName: String
-    }
-    private func test_read() {
-        print("\(NSHomeDirectory())")
-        var s = ""
-        let track = Track.Cache.shareInstance
-        testRead("track") { (key) in
-            let value = track[key]
-            s = value as! String
-        }
-       
-        
-        let diskConfig = DiskConfig(name: "Floppy")
-        let memoryConfig = MemoryConfig(expiry: .never, countLimit: 1000, totalCostLimit: 1000)
-        let storage = try? Storage(
-          diskConfig: diskConfig,
-          memoryConfig: memoryConfig,
-          transformer: TransformerFactory.forCodable(ofType: String.self) // Storage<User>
-        )
-        testRead("storage") { (key) in
-            let value = try? storage?.object(forKey: key)
-            s = value ?? ""
-        }
-        
-        
-        let cache = Shared.stringCache
-        testRead("Haneke") { (key) in
-            cache.fetch(key: key).onSuccess { (value) in
-                s = value
-            }
-        }
-        
-        print(s)
-    }
-    
      
 }
 
