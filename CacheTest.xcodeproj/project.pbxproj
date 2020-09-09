@@ -14,6 +14,7 @@
 		3A55127B2500F31A002705FD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A5512792500F31A002705FD /* Main.storyboard */; };
 		3A55127D2500F31D002705FD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3A55127C2500F31D002705FD /* Assets.xcassets */; };
 		3A5512802500F31D002705FD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3A55127E2500F31D002705FD /* LaunchScreen.storyboard */; };
+		BD9157B82508EE7300E988CA /* some.png in Resources */ = {isa = PBXBuildFile; fileRef = BD9157B72508EE7300E988CA /* some.png */; };
 		BDC4CF7B25020D04008E92A7 /* TTT.m in Sources */ = {isa = PBXBuildFile; fileRef = BDC4CF7A25020D04008E92A7 /* TTT.m */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		3A5512812500F31D002705FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		82973866D7D33AF7B8058707 /* Pods-CacheTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CacheTest.release.xcconfig"; path = "Target Support Files/Pods-CacheTest/Pods-CacheTest.release.xcconfig"; sourceTree = "<group>"; };
 		AA14D34CFE4549BB43476115 /* Pods-CacheTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CacheTest.debug.xcconfig"; path = "Target Support Files/Pods-CacheTest/Pods-CacheTest.debug.xcconfig"; sourceTree = "<group>"; };
+		BD9157B72508EE7300E988CA /* some.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = some.png; sourceTree = "<group>"; };
 		BDC4CF7825020D04008E92A7 /* CacheTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CacheTest-Bridging-Header.h"; sourceTree = "<group>"; };
 		BDC4CF7925020D04008E92A7 /* TTT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TTT.h; sourceTree = "<group>"; };
 		BDC4CF7A25020D04008E92A7 /* TTT.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTT.m; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				3A5512732500F31A002705FD /* AppDelegate.swift */,
 				3A5512752500F31A002705FD /* SceneDelegate.swift */,
 				3A5512772500F31A002705FD /* ViewController.swift */,
+				BD9157B72508EE7300E988CA /* some.png */,
 				BDC4CF7925020D04008E92A7 /* TTT.h */,
 				BDC4CF7A25020D04008E92A7 /* TTT.m */,
 				3A5512792500F31A002705FD /* Main.storyboard */,
@@ -161,6 +164,7 @@
 				3A5512802500F31D002705FD /* LaunchScreen.storyboard in Resources */,
 				3A55127D2500F31D002705FD /* Assets.xcassets in Resources */,
 				3A55127B2500F31A002705FD /* Main.storyboard in Resources */,
+				BD9157B82508EE7300E988CA /* some.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

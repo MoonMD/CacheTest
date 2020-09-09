@@ -1,0 +1,47 @@
+PODS:
+  - Cache (5.3.0)
+  - HanekeSwift (1.2)
+  - Track (3.0.0)
+  - YYCache (1.0.4)
+
+DEPENDENCIES:
+  - "Cache (from `git@github.com:hyperoslo/Cache.git`, branch `master`)"
+  - "HanekeSwift (from `git@github.com:Haneke/HanekeSwift.git`, branch `master`)"
+  - Track (from `https://github.com/maquannene/Track.git`, branch `master`)
+  - YYCache
+
+SPEC REPOS:
+  trunk:
+    - YYCache
+
+EXTERNAL SOURCES:
+  Cache:
+    :branch: master
+    :git: "git@github.com:hyperoslo/Cache.git"
+  HanekeSwift:
+    :branch: master
+    :git: "git@github.com:Haneke/HanekeSwift.git"
+  Track:
+    :branch: master
+    :git: https://github.com/maquannene/Track.git
+
+CHECKOUT OPTIONS:
+  Cache:
+    :commit: f70b03a4eff4c9ee4d38c06fda9c9ce476eb5c1b
+    :git: "git@github.com:hyperoslo/Cache.git"
+  HanekeSwift:
+    :commit: 41c1efc82a9b7cefa4381f79669ab1e32b867b16
+    :git: "git@github.com:Haneke/HanekeSwift.git"
+  Track:
+    :commit: aa76dd4857aaa0791cdd4ac3c4141686ab45431e
+    :git: https://github.com/maquannene/Track.git
+
+SPEC CHECKSUMS:
+  Cache: 48762993ec44e1d93483c4d4a13edd18452326f4
+  HanekeSwift: 0ee43c4cfe871ef8cc7382bda8729b6374c41748
+  Track: 345faae0b4d5429243891d98debefa50dbd30786
+  YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+
+PODFILE CHECKSUM: 8afc6c8ff48ac76efbdb47a2b60eff075c9ea1aa
+
+COCOAPODS: 1.8.4

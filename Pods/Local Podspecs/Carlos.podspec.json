@@ -1,0 +1,31 @@
+{
+  "name": "Carlos",
+  "version": "0.10.0",
+  "summary": "A simple but flexible cache.",
+  "description": "Carlos is a small set of classes convenience operators to realize custom, flexible and powerful cache layers in your iOS, watchOS 3, tvOS and Mac OS X applications.",
+  "homepage": "https://github.com/spring-media/Carlos",
+  "license": "MIT",
+  "authors": {
+    "Vittorio Monaco": "vittorio.monaco1@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/spring-media/Carlos.git",
+    "tag": "0.10.0"
+  },
+  "swift_versions": "5.0",
+  "platforms": {
+    "ios": "10.0",
+    "watchos": "3.0"
+  },
+  "source_files": "Carlos/*.swift",
+  "watchos": {
+    "exclude_files": "Carlos/MemoryWarning.swift"
+  },
+  "dependencies": {
+    "PiedPiper": [
+      "~> 0.11.0"
+    ]
+  },
+  "requires_arc": true,
+  "swift_version": "5.0"
+}
